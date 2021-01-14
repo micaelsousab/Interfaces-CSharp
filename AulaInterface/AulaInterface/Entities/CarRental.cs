@@ -2,7 +2,7 @@
 
 namespace AulaInterface.Entities
 {
-    class CarRental
+    public class CarRental
     {
         public DateTime Start { get; set; }
         public DateTime Finish { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace AulaInterface.Entities
 {
-    class Vehicle
+    public class Vehicle
     {
         public string Model { get; set; }
 
