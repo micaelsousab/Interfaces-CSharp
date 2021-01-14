@@ -9,30 +9,31 @@ namespace AulaInterface
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter rental data: ");
-            string model = Console.ReadLine();
+            Console.WriteLine("Enter contract data:");
 
-            Console.Write("Pickup (dd/mm/yyyy hh:mm): ");
-            DateTime start = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            Console.Write("Number: ");
+            int contractNumber = int.Parse(Console.ReadLine());
 
-            Console.Write("Return (dd/mm/yyyy hh:mm): ");
-            DateTime finish = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            Console.Write("Date: (dd/mm/yyyy): ");
+            DateTime date = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-            Console.Write("Enter price per hour: ");
-            double hour = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            Console.Write("Contract value: ");
+            double contractValue = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-            Console.Write("Enter price per hour: ");
-            double day = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            Console.Write("Enter number of installments: ");
+            int numberInstallments = int.Parse(Console.ReadLine());
 
-            CarRental carRental = new CarRental(start, finish, new Vehicle(model));
+            Contract contract = new Contract(contractNumber, date, contractValue);
 
-            RentalService rentalService = new RentalService(hour, day, new BrazilTaxService());
+            ContractService contractService = new ContractService(new PaypalService());
+            contractService.ProcessContract(contract, numberInstallments);
 
-            rentalService.ProcessInvoice(carRental);
 
-            Console.WriteLine("INVOICE: ");
-            Console.WriteLine(carRental.Invoice);
-             
+            Console.WriteLine("Installments: ");
+            foreach (Installment installment in contract.Installments)
+            {
+                Console.WriteLine(installment.ToString());
+            }
         }
     }
 }
